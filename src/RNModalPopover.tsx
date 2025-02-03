@@ -49,27 +49,29 @@ export default class RNModalPopover extends Component<RNModalPopoverProps, Modal
     const { visible } = this.state;
 
     return (
-      <Modal
-        transparent={true}
-        supportedOrientations={['portrait', 'portrait-upside-down', 'landscape']}
-        hardwareAccelerated={true}
-        visible={visible}
-        statusBarTranslucent={statusBarTranslucent ?? DEFAULT_STATUS_BAR_TRANSLUCENT}
-        onShow={() => {
-          RNModalPopover.isShowingInModal = true;
-        }}
-        // Handles android back button
-        onRequestClose={onRequestClose}>
-        <AdaptivePopover
-          {...this.props}
-          onCloseStart={() => {
-            RNModalPopover.isShowingInModal = false;
-            if (onCloseStart) onCloseStart();
+      <View>
+        <Modal
+          transparent={true}
+          supportedOrientations={['portrait', 'portrait-upside-down', 'landscape']}
+          hardwareAccelerated={true}
+          visible={visible}
+          statusBarTranslucent={statusBarTranslucent ?? DEFAULT_STATUS_BAR_TRANSLUCENT}
+          onShow={() => {
+            RNModalPopover.isShowingInModal = true;
           }}
-          onCloseComplete={() => this.setState({ visible: false })}
-          getDisplayAreaOffset={() => Promise.resolve(new Point(0, 0))}
-        />
-      </Modal>
+          // Handles android back button
+          onRequestClose={onRequestClose}>
+          <AdaptivePopover
+            {...this.props}
+            onCloseStart={() => {
+              RNModalPopover.isShowingInModal = false;
+              if (onCloseStart) onCloseStart();
+            }}
+            onCloseComplete={() => this.setState({ visible: false })}
+            getDisplayAreaOffset={() => Promise.resolve(new Point(0, 0))}
+          />
+        </Modal>
+      </View>
     );
   }
 }
